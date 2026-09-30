@@ -1,0 +1,35 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: snkrlab-ms-reportes
+
+  datasource:
+    url: "${DB_URL:jdbc:mysql://localhost:3310/snkrlab_reports_db?useSSL=false&allowPublicKeyRetrieval=true}"
+    username: "${DB_USERNAME:root}"
+    password: "${DB_PASSWORD:root}"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+  rabbitmq:
+    host: "${RABBITMQ_HOST:localhost}"
+    port: "${RABBITMQ_PORT:5672}"
+    username: "${RABBITMQ_USERNAME:guest}"
+    password: "${RABBITMQ_PASSWORD:guest}"
+    listener:
+      simple:
+        acknowledge-mode: auto
+        concurrency: 1
+        max-concurrency: 1
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: "${AZURE_ISSUER_URI:https://login.microsoftonline.com/}"
+          tenant-id: "${AZURE_TENANT_ID:db9d1cc0-8c32-4341-bc72-c348daf096fb}"

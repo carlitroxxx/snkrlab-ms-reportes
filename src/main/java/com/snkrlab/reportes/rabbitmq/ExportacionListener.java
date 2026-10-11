@@ -16,8 +16,14 @@ public class ExportacionListener {
     ) {
         this.exportacionService = exportacionService;
     }
-
     @RabbitListener(queues = RabbitMQConfig.COLA_EXPORTACIONES)
+
+    /*
+    Para probar la cola hay que cambiar el @RabbitListener y ponerle el atributo autoStartup = "false"
+    @RabbitListener(queues = RabbitMQConfig.COLA_EXPORTACIONES,
+            autoStartup = "false")
+    */
+
     public void recibir(String id) {
         try {
             exportacionService.generar(id);

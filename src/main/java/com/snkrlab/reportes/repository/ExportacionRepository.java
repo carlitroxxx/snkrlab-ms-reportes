@@ -9,8 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface ExportacionRepository
-        extends JpaRepository<Exportacion, String> {
+public interface ExportacionRepository extends JpaRepository<Exportacion, String> {
 
     Optional<Exportacion> findByIdAndUsuarioId(
             String id,
@@ -21,5 +20,9 @@ public interface ExportacionRepository
     @Query("select e from Exportacion e where e.id = :id")
     Optional<Exportacion> buscarParaActualizar(
             @Param("id") String id
+    );
+
+    Optional<Exportacion> findFirstByUsuarioIdOrderByCreadaDesc(
+            String usuarioId
     );
 }

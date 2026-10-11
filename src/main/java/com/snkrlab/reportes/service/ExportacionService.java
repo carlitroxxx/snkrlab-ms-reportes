@@ -231,4 +231,11 @@ public class ExportacionService {
 
         csv.append("\r\n");
     }
+
+    @Transactional(readOnly = true)
+    public Exportacion obtenerUltima(String usuarioId) {
+        return repository
+                .findFirstByUsuarioIdOrderByCreadaDesc(usuarioId)
+                .orElse(null);
+    }
 }

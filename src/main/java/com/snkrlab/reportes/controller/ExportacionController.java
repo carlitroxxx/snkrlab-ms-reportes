@@ -161,4 +161,19 @@ public class ExportacionController {
 
         return oid;
     }
+
+    @GetMapping("/ultima")
+    public ResponseEntity<ExportacionDTO> ultima(
+            @AuthenticationPrincipal Jwt jwt
+    ) {
+        Exportacion exportacion = exportacionService.obtenerUltima(
+                usuarioId(jwt)
+        );
+
+        if (exportacion == null) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.ok(convertirDTO(exportacion));
+    }
 }
